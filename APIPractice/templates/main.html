@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        
+        #chart_div {
+        width: 400px !important;
+        height: 400px !important;
+        }
+    </style>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+          countries =[['Country', 'tweet']]
+            var data = {{data|safe}};
+            console.log(data)
+          for(var i =0;i<data.length;i++)
+          {
+              if(countries)
+              countries.push([data[i],1]);
+              
+          }
+          for(var i=0;i<countries.length;i++){
+            console.log(countries[i]);
+          }
+        var data = google.visualization.arrayToDataTable(countries);
+        var options = {};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script> 
+</head>
+<body>
+    
+    <div class="container-fluid pt-5">
+        <form class="form-inline" action="{% url 'main' %}" method="GET">
+            <label for="hashtag" class="mb-2 mr-sm-2">HashTag: </label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="hashtag" placeholder="Enter HashTag" name="hashtag">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+          </form>
+    </div>
+    <div id="regions_div"></div>
+</body>
+</html>
