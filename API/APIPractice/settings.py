@@ -27,15 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SECRET_KEY = os.environ['SECRET_KEY']
 
-consumer_token = os.environ['consumer_token']
+consumer_token = "s4TyUFerTKjHLpXJQFjEPVeA1"
 
-consumer_secret = os.environ['consumer_secret']
+consumer_secret = "ObLtWCo3bJKTC9XAY0WtPUsdXCF6qAosLxu7MaCIl93ZijyoQj"
 
-access_token = os.environ['access_token']
+access_token = "1238306644255260672-1Atb3NIQ5LgvmXOiwABsWK7bbt5qwD"
 
-access_token_secret = os.environ['access_token_secret']
+access_token_secret = "cK5ci0gzVX9P6CInBjTOyaBLxcbCn8KQEJTS7YwgsNr1S"
 
 # Application definition
 

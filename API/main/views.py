@@ -237,13 +237,14 @@ def main(request):
     ]
     #del countries[0::2]
 
-    consumer_token = os.environ['consumer_token']
+    from  APIPractice.settings import consumer_token, consumer_secret, access_token, access_token_secret
+    # consumer_token = os.environ['consumer_token']
 
-    consumer_secret = os.environ['consumer_secret']
+    # consumer_secret = os.environ['consumer_secret']
 
-    access_token = os.environ['access_token']
+    # access_token = os.environ['access_token']
 
-    access_token_secret = os.environ['access_token_secret']
+    # access_token_secret = os.environ['access_token_secret']
 
 
     auth = tweepy.OAuthHandler(consumer_token, consumer_secret)
@@ -256,11 +257,13 @@ def main(request):
     if 'hashtag' in request.GET:
        hashtag = request.GET['hashtag']
        if hashtag:
-            for tweet in tweepy.Cursor(api.search,q="#" + hashtag + " -filter:retweets",rpp=5,lang="en", tweet_mode='extended').items(100):
-                for country in countries:
-                    if country in tweet.user.location:
-                        tweets.append(country)
-    
+            try:
+                for tweet in tweepy.Cursor(api.search,q="#" + hashtag + " -filter:retweets",rpp=5,lang="en", tweet_mode='extended').items(100):
+                    for country in countries:
+                        if country in tweet.user.location:
+                            tweets.append(country)
+            except tweepy.error.TweepError:
+                pass
     # c = [x for x in tweets if any(b in x for b in countries)]
     #result = dict((i, c.count(i)) for i in c)
     data = json.dumps(tweets)
